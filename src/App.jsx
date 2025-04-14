@@ -5,6 +5,7 @@ import Hero from './components/Hero'
 import CustomCursor from './components/customcursor'
 import About from './components/about'
 import Contact from './components/contact'
+import TechStack from './components/techstack'
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
      <Hero></Hero>
       <Navbar></Navbar>
      <About></About>
+     <TechStack></TechStack>
      <Contact></Contact>
     </div>
   )
