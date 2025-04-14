@@ -26,7 +26,7 @@ const images = [
 
 export default function TechStack() {
   return (
-    <div className='w-full overflow-x-auto flex justify-center items-stretch whitespace-nowrap px-5 py-10'>
+    <div className='w-full overflow-x-auto flex  items-stretch whitespace-nowrap px-5 py-10'>
       
       <div className='inline-flex'>
         {images.map((img, index) => (
