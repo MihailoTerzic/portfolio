@@ -1,10 +1,30 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [showNav, setShowNav] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setShowNav(false)
+      } else {
+        setShowNav(true)
+      }
+
+      setLastScrollY(currentScrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [lastScrollY])
 
   return (
-    <nav className="w-full py-4 flex px-10 justify-between items-center fixed top-0 left-0 z-100 bg-transparent">
+    <nav className={`w-full py-4 flex px-10 justify-between items-center fixed top-0 left-0 z-100 transition-transform duration-300 ${showNav ? ' backdrop-blur-xl bg-white/10' : '-translate-y-full'} ${menuOpen && 'h-screen'}`}>
+
       {/* TERZO Logo */}
       <div className="text-2xl font-bold text-black md:text-black">
         TERZO
