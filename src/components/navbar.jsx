@@ -7,23 +7,30 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY
-
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setShowNav(false)
+      const currentScrollY = window.scrollY;
+  
+      // Always hide nav on first 100vh, unless scrolling up
+      if (currentScrollY < 100) {
+        setShowNav(false);
+      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down and beyond 100vh, hide nav
+        setShowNav(false);
       } else {
-        setShowNav(true)
+        // Scrolling up, show nav
+        setShowNav(true);
       }
+  
+      setLastScrollY(currentScrollY);
+    };
+  
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
-      setLastScrollY(currentScrollY)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [lastScrollY])
+    
 
   return (
-    <nav className={`w-full py-4 flex px-10 justify-between items-center fixed top-0 left-0 z-100 transition-transform duration-300 ${showNav ? ' backdrop-blur-xl bg-white/10' : '-translate-y-full'} ${menuOpen && 'h-screen'}`}>
+    <nav className={`w-full mix-blend-luminosity py-4 flex px-10 justify-between items-center fixed top-0 left-0 z-100 transition-transform duration-300 ${showNav ? ' backdrop-blur-xl bg-white/10' : '-translate-y-full'} ${menuOpen && 'h-screen'}`}>
 
       {/* TERZO Logo */}
       <div className="text-2xl font-bold text-black md:text-black">
